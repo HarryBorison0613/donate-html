@@ -1,0 +1,1211 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <title>Ahbap - Crypto</title>
+    <link href="style1.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  </head>
+  <body onload="checkId()">
+    <div id="root">
+      <div
+        class="absolute z-10 h-full w-full bg-white flex items-center justify-center transition-all opacity-0 invisible"
+      >
+        <svg
+          class="animate-spin h-8 w-8 text-brand"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            class="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="4"
+          ></circle>
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+          ></path>
+        </svg>
+      </div>
+      <div class="pb-24">
+        <header>
+          <div
+            class="bg-brand sm:h-[592px] pb-16 sm:pb-0 text-white flex flex-col items-center text-center px-4 lg:px-0"
+          >
+            <img
+              class="mt-24 sm:mt-10 w-[200px]"
+              src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAACrCAYAAABIdcoWAAAACXBIWXMAAAsTAAALEwEAmpwYAAAGoGlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDUgNzkuMTYzNDk5LCAyMDE4LzA4LzEzLTE2OjQwOjIyICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtbG5zOnN0RXZ0PSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VFdmVudCMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTkgKE1hY2ludG9zaCkiIHhtcDpDcmVhdGVEYXRlPSIyMDIwLTAxLTIzVDE0OjM4OjE2KzAzOjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAyMC0wMi0wNlQyMDo1Mjo1MSswMzowMCIgeG1wOk1ldGFkYXRhRGF0ZT0iMjAyMC0wMi0wNlQyMDo1Mjo1MSswMzowMCIgZGM6Zm9ybWF0PSJpbWFnZS9wbmciIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDphNmE3ODJiMi1iYjZhLTQxZmItODdlOC02MmEyZmJmMGI5ZjgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6YTZhNzgyYjItYmI2YS00MWZiLTg3ZTgtNjJhMmZiZjBiOWY4IiB4bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ9InhtcC5kaWQ6YTZhNzgyYjItYmI2YS00MWZiLTg3ZTgtNjJhMmZiZjBiOWY4Ij4gPHhtcE1NOkluZ3JlZGllbnRzPiA8cmRmOkJhZz4gPHJkZjpsaSBzdFJlZjpsaW5rRm9ybT0iUmVmZXJlbmNlU3RyZWFtIiBzdFJlZjpmaWxlUGF0aD0iY2xvdWQtYXNzZXQ6Ly9jYy1hcGktc3RvcmFnZS5hZG9iZS5pby9hc3NldHMvYWRvYmUtbGlicmFyaWVzL2VhYjZhNjg3LTMwZjAtNDNmNi05YzI4LTNjMjA2M2Y1NzViMTtub2RlPTJkZGUyM2VlLWZjMDAtNGIyOS05YmJkLWJlMDk5YTRhYmQ4ZiIgc3RSZWY6RG9jdW1lbnRJRD0idXVpZDpjZWZjNzI5NC00MTlmLTkyNDMtODY4Ni0yZTdmNGRhYTNiMjYiLz4gPC9yZGY6QmFnPiA8L3htcE1NOkluZ3JlZGllbnRzPiA8eG1wTU06SGlzdG9yeT4gPHJkZjpTZXE+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJjcmVhdGVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOmE2YTc4MmIyLWJiNmEtNDFmYi04N2U4LTYyYTJmYmYwYjlmOCIgc3RFdnQ6d2hlbj0iMjAyMC0wMS0yM1QxNDozODoxNiswMzowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTkgKE1hY2ludG9zaCkiLz4gPC9yZGY6U2VxPiA8L3htcE1NOkhpc3Rvcnk+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+Rn8GLwAAGtlJREFUeJzt3XuYHUWZx/HvzCRACEkQCJdEASGGiAoxAQnh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"
+              alt="Ahbap logo"
+            />
+            <h1 class="text-xl sm:text-2xl font-semibold mt-8 max-w-7xl">
+              Turkey has been hit hard by a series of earthquakes. 10,000
+              buildings have been destroyed and 50,000 people are trapped
+              beneath the rubble. 13 million people are in need of assistance.
+              If you would like to help, you can donate through the following
+              crypto wallet address.
+            </h1>
+            <h2 class="text-base sm:text-xl mt-8 max-w-3xl">
+              We are collecting cryptocurrency donations to support the
+              earthquake relief efforts in Turkey. If you would like to
+              contribute, please use one of the following addresses. Thank you
+              for your generosity!.
+            </h2>
+            <div
+              class="absolute top-6 right-6 lg:right-24 inline-block text-left select-none"
+              data-headlessui-state=""
+            >
+              <div>
+                <button
+                  class="inline-flex w-full justify-center items-center rounded border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none hover:opacity-90 transition-opacity"
+                  id="headlessui-menu-button-:r0:"
+                  type="button"
+                  aria-haspopup="menu"
+                  aria-expanded="false"
+                  data-headlessui-state=""
+                >
+                  <img
+                    class="w-6 h-4 rounded-sm mr-2"
+                    src="https://country-flag-proxy.nod.workers.dev/png/gb"
+                    alt="i18n.language flag"
+                  /><span class="uppercase">en</span
+                  ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                    class="-mr-1 ml-2 h-5 w-5"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </header>
+        <div
+          class="mt-12 flex flex-col lg:flex-row gap-8 lg:min-h-[464px] justify-center lg:-mt-40 px-8 lg:px-0"
+        >
+          <div
+            class="bg-white lg:w-[564px] border rounded shadow p-6 flex flex-col text-black text-left"
+          >
+            <h1 class="font-bold text-xl sm:text-2xl">
+              Amount of Donations Collected
+            </h1>
+            <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <div
+                class="py-4 inline-flex items-center justify-center rounded border border-brand text-brand text-2xl font-bold hover:bg-brand hover:text-white transition-colors"
+              >
+                $3,758,221
+              </div>
+              <div
+                class="py-4 inline-flex items-center justify-center rounded border border-brand text-brand text-2xl font-bold hover:bg-brand hover:text-white transition-colors"
+              >
+                ₺70.729.719
+              </div>
+            </div>
+            <p class="mt-6 text-sm text-gray-600">
+              The USD and TRY values shown here are the combined estimated value
+              of all 3 wallet addresses. The TRY value is calculated by
+              converting the USD value to the current exchange rate. These
+              values are updated every 30 seconds, so you may need to refresh
+              the page to get the latest information..<br /><br />If you're
+              interested in keeping track of the total amount collected, you can
+              follow it in real time on Nansen.<a
+                class="text-brand font-medium hover:underline break-all"
+                href="https://portfolio.nansen.ai/dashboard/APE-JBS8U7"
+                >https://portfolio.nansen.ai/dashboard/APE-JBS8U7</a
+              >
+            </p>
+          </div>
+          <div
+            class="bg-white lg:w-[564px] border rounded shadow p-6 flex flex-col text-black text-left"
+          >
+            <div class="flex items-center justify-between">
+              <h1 class="font-bold text-xl sm:text-2xl">
+                Crypto Addresses You Can Donate To
+              </h1>
+              <a
+                href="https://twitter.com/haluklevent/status/1622926244512661504"
+                target="_blank"
+                rel="noreferrer"
+                ><img
+                  class="h-8 hover:opacity-80 transition-opacity"
+                  src="twitter.svg"
+                  alt=""
+              /></a>
+            </div>
+            <div class="mt-6 space-y-4">
+              <div class="border rounded p-4 flex items-center justify-between">
+                <div class="space-y-2">
+                  <h6 class="font-semibold">ERC20 Network</h6>
+                  <span class="hidden sm:block text-sm"
+                    >0xe1935271D1993434A1a59fE08f24891Dc5F398Cd</span
+                  >
+                </div>
+                <button
+                  class="px-4 py-2 rounded bg-brand text-white shadow-sm font-medium inline-flex items-center justify-center text-sm hover:bg-green-600 transition-colors"
+                >
+                  Copy
+                </button>
+              </div>
+              <div class="border rounded p-4 flex items-center justify-between">
+                <div class="space-y-2">
+                  <h6 class="font-semibold">BEP20 Network</h6>
+                  <span class="hidden sm:block text-sm"
+                    >0xB67705398fEd380a1CE02e77095fed64f8aCe463</span
+                  >
+                </div>
+                <button
+                  class="px-4 py-2 rounded bg-brand text-white shadow-sm font-medium inline-flex items-center justify-center text-sm hover:bg-green-600 transition-colors"
+                >
+                  Copy
+                </button>
+              </div>
+              <div class="border rounded p-4 flex items-center justify-between">
+                <div class="space-y-2">
+                  <h6 class="font-semibold">Avalanche Network</h6>
+                  <span class="hidden sm:block text-sm"
+                    >0x868D27c361682462536DfE361f2e20B3A6f4dDD8</span
+                  >
+                </div>
+                <button
+                  class="px-4 py-2 rounded bg-brand text-white shadow-sm font-medium inline-flex items-center justify-center text-sm hover:bg-green-600 transition-colors"
+                >
+                  Copy
+                </button>
+              </div>
+              <p class="text-center text-sm text-gray-600">
+                Before making the transfer, always copy the address from the
+                <a
+                  class="text-brand font-medium hover:underline"
+                  href="https://twitter.com/haluklevent/status/1622926244512661504"
+                  >original tweet</a
+                ><a>. Do not trust other wallet information.</a>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="mt-24 flex flex-col gap-y-2 max-w-6xl mx-auto px-8 lg:px-0">
+          <h1 class="text-2xl font-bold">
+            How much was donated from which address?
+          </h1>
+          <div id="1">
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="eth.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Tether (USDT)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0xeafcc54f8e06af21dc6188b841be74f812fc30b2</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>100.00 <b>USDT</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BSC-USD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0x8894e0a0c962cb723c1976a4421c95949be2d4e3</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>54.92 <b>BSC-USD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="eth.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Tether (USDT)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0xf89d7b9c864f589bbf53a82105107622b35eaa40</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>105.03 <b>USDT</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BUSD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0xe2fc31f816a9b94326492132018c3aecc4a93ae1</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>50.00 <b>BUSD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BSC-USD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0x4982085c9e2f89f2ecb8131eca71afad896e89cb</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>100.00 <b>BSC-USD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BSC-USD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0xe2fc31f816a9b94326492132018c3aecc4a93ae1</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>9.71 <b>BSC-USD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BSC-USD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0xeb2d2f1b8c558a40207669291fda468e50c8a0bb</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>49.99 <b>BSC-USD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BUSD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0x8894e0a0c962cb723c1976a4421c95949be2d4e3</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>20.00 <b>BUSD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BUSD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0xdccf3b77da55107280bd850ea519df3705d1a75a</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>10.00 <b>BUSD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BSC-USD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0xeb2d2f1b8c558a40207669291fda468e50c8a0bb</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>10.71 <b>BSC-USD</b></span>
+              </div>
+            </div>
+          </div>
+          <div id="2">
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="eth.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Tether (USDT)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0xeafcc54f8e06af21dc6188b841be74f812f123ds</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>200.00 <b>USDT</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BSC-USD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0xes94e0a0c962cb723c1976a4421c95949be234kl</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>30.92 <b>BSC-USD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="eth.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Tether (USDT)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0xas9d7b9c864f589bbf53a82105107622b35487ew</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>123.03 <b>USDT</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BUSD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0xe2fc31f816a9b94326492132018c3aecc4a374sd</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>150.00 <b>BUSD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BSC-USD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0x2312085c9e2f89f2ecb8131eca71afad896wer12</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>200.00 <b>BSC-USD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BSC-USD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0x23ec31f816a9b94326492132018c3aecc4aerwe1</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>19.71 <b>BSC-USD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BSC-USD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0x1232f1b8c558a40207669291fda468e50c8a333</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>149.99 <b>BSC-USD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BUSD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0x2344e0a0c962cb723c1976a4421c95949b34231</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>120.00 <b>BUSD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BUSD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0xwwwf3b77da55107280bd850ea519df3705dsda32</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>110.00 <b>BUSD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BSC-USD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0xeb2d2f1b8c558a40207669291fda468e50cwqe12</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>110.71 <b>BSC-USD</b></span>
+              </div>
+            </div>
+          </div>
+          <div id="3">
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="eth.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Tether (USDT)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0x123sa54f8e06af21dc6188b841be74f812fcee23</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>300.00 <b>USDT</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BSC-USD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0x2224e0a0c962cb723c1976a4421c95949be2444q</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>154.92 <b>BSC-USD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="eth.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Tether (USDT)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0x12ad7b9c864f589bbf53a82105107622b35sere2</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>305.03 <b>USDT</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BUSD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0x12wc31f816a9b94326492132018c3aecc4a93909</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>150.00 <b>BUSD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BSC-USD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0x1112085c9e2f89f2ecb8131eca71afad896e1111</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>400.00 <b>BSC-USD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BSC-USD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0x222c31f816a9b94326492132018c3aecc4a92222</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>19.71 <b>BSC-USD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BSC-USD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0xqwew2f1b8c558a40207669291fda468e50c8123a</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>149.99 <b>BSC-USD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BUSD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0x231ae0a0c962cb723c1976a4421c95949be2asdq</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>120.00 <b>BUSD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BUSD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0xdccf3b77da55107280bd850ea519df3705d1a75a</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>10.00 <b>BUSD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BSC-USD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0xeb2d2f1b8c558a40207669291fda468e50c8a0bb</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>10.71 <b>BSC-USD</b></span>
+              </div>
+            </div>
+          </div>
+          <div id="4">
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="eth.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Tether (USDT)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0xeafcc54f8e06af21dc6188b841be74f812fc30b2</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>400.00 <b>USDT</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BSC-USD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0x8894e0a0c962cb723c1976a4421c95949be2d4e3</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>54.92 <b>BSC-USD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="eth.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Tether (USDT)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0xf89d7b9c864f589bbf53a82105107622b35eaa40</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>105.03 <b>USDT</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BUSD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0xe2fc31f816a9b94326492132018c3aecc4a93ae1</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>50.00 <b>BUSD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BSC-USD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0x4982085c9e2f89f2ecb8131eca71afad896e89cb</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>100.00 <b>BSC-USD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BSC-USD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0xe2fc31f816a9b94326492132018c3aecc4a93ae1</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>9.71 <b>BSC-USD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BSC-USD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0xeb2d2f1b8c558a40207669291fda468e50c8a0bb</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>49.99 <b>BSC-USD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BUSD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0x8894e0a0c962cb723c1976a4421c95949be2d4e3</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>20.00 <b>BUSD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BUSD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0xdccf3b77da55107280bd850ea519df3705d1a75a</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>10.00 <b>BUSD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BSC-USD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0xeb2d2f1b8c558a40207669291fda468e50c8a0bb</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>10.71 <b>BSC-USD</b></span>
+              </div>
+            </div>
+          </div>
+          <div id="5">
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="eth.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Tether (USDT)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0xeafcc54f8e06af21dc6188b841be74f812fc30b2</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>500.00 <b>USDT</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BSC-USD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0x8894e0a0c962cb723c1976a4421c95949be2d4e3</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>54.92 <b>BSC-USD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="eth.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Tether (USDT)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0xf89d7b9c864f589bbf53a82105107622b35eaa40</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>105.03 <b>USDT</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BUSD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0xe2fc31f816a9b94326492132018c3aecc4a93ae1</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>50.00 <b>BUSD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BSC-USD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0x4982085c9e2f89f2ecb8131eca71afad896e89cb</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>100.00 <b>BSC-USD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BSC-USD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0xe2fc31f816a9b94326492132018c3aecc4a93ae1</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>9.71 <b>BSC-USD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BSC-USD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0xeb2d2f1b8c558a40207669291fda468e50c8a0bb</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>49.99 <b>BSC-USD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BUSD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0x8894e0a0c962cb723c1976a4421c95949be2d4e3</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>20.00 <b>BUSD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BUSD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0xdccf3b77da55107280bd850ea519df3705d1a75a</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>10.00 <b>BUSD</b></span>
+              </div>
+            </div>
+            <div
+              class="py-4 flex flex-col sm:flex-row sm:items-center gap-y-4 justify-between border-b"
+            >
+              <div class="flex items-center gap-x-2.5">
+                <img class="h-8 w-8" src="bsc.svg" alt="" />
+                <div class="flex flex-col">
+                  <span>Binance USD (BSC-USD)</span
+                  ><span class="truncate w-64 md:w-auto"
+                    >0xeb2d2f1b8c558a40207669291fda468e50c8a0bb</span
+                  >
+                </div>
+              </div>
+              <div
+                class="text-sm sm:text-base flex flex-row sm:flex-col justify-between sm:justify-start"
+              >
+                <span>10.71 <b>BSC-USD</b></span>
+              </div>
+            </div>
+          </div>
+          <div
+            class="mt-6 self-center sm:self-end flex items-center gap-x-4 select-none"
+          >
+            <button
+              class="h-10 w-10 border rounded inline-flex items-center justify-center font-bold hover:bg-gray-100 transition-all cursor-pointer disabled:opacity-50 disabled:pointer-events-none"
+              onclick="prevFunc()"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                aria-hidden="true"
+                class="h-4"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15.75 19.5L8.25 12l7.5-7.5"
+                ></path>
+              </svg>
+            </button>
+            <div id="pageNum">1/5</div>
+            <button
+              class="h-10 w-10 border rounded inline-flex items-center justify-center font-bold hover:bg-gray-100 transition-all cursor-pointer disabled:opacity-50 disabled:pointer-events-none"
+              onclick="nextFunc()"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                aria-hidden="true"
+                class="h-4"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <script type="text/javascript" src="./button.js"></script> -->
+    <script>
+      var pageNum = "1/5";
+      var id = 1;
+
+      function prevFunc() {
+        if (id == 1) return;
+        else {
+          id -= 1;
+          pageNum = id + "/5";
+        }
+        document.getElementById("pageNum").innerHTML = pageNum;
+        checkId();
+      }
+
+      function nextFunc() {
+        if (id == 5) return;
+        else {
+          id += 1;
+          pageNum = id + "/5";
+        }
+        document.getElementById("pageNum").innerHTML = pageNum;
+        checkId();
+      }
+
+      function checkId() {
+        jQuery(function ($) {
+          for (var i = 1; i <= 5; i++) {
+            if (i == id) {
+              $("#" + i).show();
+            } else {
+              $("#" + i).hide();
+            }
+          }
+        });
+      }
+    </script>
+    <iframe
+      height="1"
+      width="1"
+      style="
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        border: none;
+        visibility: hidden;
+      "
+    ></iframe>
+  </body>
+  <div class="XTranslate"></div>
+</html>
